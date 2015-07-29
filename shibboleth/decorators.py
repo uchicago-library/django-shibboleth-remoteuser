@@ -1,9 +1,13 @@
 """
 Decorators to use with Shibboleth.
 """
+import sys
 from django.conf import settings
 from django.contrib import auth
-from middleware import ShibbolethRemoteUserMiddleware
+if (sys.version_info < (3, 0)):
+    from middleware import ShibbolethRemoteUserMiddleware
+else:
+    from .middleware import ShibbolethRemoteUserMiddleware
 
 def login_optional(func):
   """

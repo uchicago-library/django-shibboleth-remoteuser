@@ -1,3 +1,4 @@
+import sys
 from distutils.version import StrictVersion
 import django
 if StrictVersion(django.get_version()) < StrictVersion('1.4'):
@@ -5,7 +6,10 @@ if StrictVersion(django.get_version()) < StrictVersion('1.4'):
 else:
     from django.conf.urls import patterns, url
 
-from views import ShibbolethView, ShibbolethLogoutView, ShibbolethLoginView
+if (sys.version_info < (3, 0)):
+    from views import ShibbolethView, ShibbolethLogoutView, ShibbolethLoginView
+else:
+    from .views import ShibbolethView, ShibbolethLogoutView, ShibbolethLoginView
 
 urlpatterns = patterns('',
     url(r'^login/$', ShibbolethLoginView.as_view(), name='login'),

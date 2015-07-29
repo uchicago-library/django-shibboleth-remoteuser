@@ -1,5 +1,5 @@
 
-
+import sys
 from django.conf import settings
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
@@ -9,7 +9,10 @@ from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from urllib import quote
+if (sys.version_info < (3, 0)):
+    from urllib import quote
+else:
+    from urllib.parse import quote
 
 #Logout settings.
 from shibboleth.app_settings import LOGOUT_URL, LOGOUT_REDIRECT_URL, LOGOUT_SESSION_KEY
